@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Autoinstaller.ViewModels
 {
-    internal class BaseViewModel
+    public class BaseViewModel
     {
+
     }
 }

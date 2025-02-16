@@ -1,17 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Autoinstaller.Services;
+using Autoinstaller.Services.Interfaces;
+using Autoinstaller.ViewModels;
 using System.Windows;
 
 namespace Autoinstaller
 {
-    /// <summary>
-    /// Логика взаимодействия для App.xaml
-    /// </summary>
     public partial class App : Application
     {
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+
+            // Создаём экземпляр сервиса
+            IInstallerService installerService = new InstallerService();
+
+            // Создаём ViewModel, передаём в конструктор сервис
+            var mainViewModel = new MainViewModel(installerService);
+
+            // Создаём главное окно и назначаем DataContext
+            MainWindow mainWindow = new MainWindow
+            {
+                DataContext = mainViewModel
+            };
+
+            mainWindow.Show();
+        }
     }
 }
