@@ -7,8 +7,6 @@ namespace Autoinstaller.Services
     {
         public void InstallMsi(string msiPath)
         {
-            // /quiet — тихий режим (без окон),
-            // /norestart — без перезагрузки
             var arguments = $"/i \"{msiPath}\" /quiet /norestart";
 
             var startInfo = new ProcessStartInfo("msiexec.exe", arguments)

@@ -1,12 +1,59 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Autoinstaller.ViewModels;
 
 namespace Autoinstaller.Models
 {
-    internal class Programitem
+    public class Programitem : BaseViewModel
     {
+        private bool _isSelected;
+        public bool IsSelected
+        {
+            get => _isSelected;
+            set => SetProperty(ref _isSelected, value);
+        }
+
+        private string _name;
+        public string Name
+        {
+            get => _name;
+            set => SetProperty(ref _name, value);
+        }
+
+        private string _installerPath;
+        public string InstallerPath
+        {
+            get => _installerPath;
+            set => SetProperty(ref _installerPath, value);
+        }
+
+        private string _status;
+        public string Status
+        {
+            get => _status;
+            set => SetProperty(ref _status, value);
+        }
+
+        // Новое поле "Ассоциация"
+        private string _association;
+        public string Association
+        {
+            get => _association;
+            set => SetProperty(ref _association, value);
+        }
+
+        // Новое поле "Путь источника замены"
+        private string _sourceReplacePath;
+        public string SourceReplacePath
+        {
+            get => _sourceReplacePath;
+            set => SetProperty(ref _sourceReplacePath, value);
+        }
+
+        // Новое поле "Целевой путь замены"
+        private string _targetReplacePath;
+        public string TargetReplacePath
+        {
+            get => _targetReplacePath;
+            set => SetProperty(ref _targetReplacePath, value);
+        }
     }
 }

@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Autoinstaller.Services.Interfaces
 {
-    internal class IProgramCheckerService
+    public interface IProgramCheckerService
     {
+        /// <summary>
+        /// Возвращает список установленных программ (DisplayName).
+        /// </summary>
+        /// <returns>Список названий программ</returns>
+        List<string> GetInstalledPrograms();
     }
 }

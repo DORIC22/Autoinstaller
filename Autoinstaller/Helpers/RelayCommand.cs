@@ -1,48 +1,48 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace Autoinstaller.Helpers
 {
-    internal class RelayCommand : ICommand
+    public class RelayCommand : ICommand
     {
-        private readonly Action<object> _execute;
+        private readonly Action<object> _executeAction;
         private readonly Func<object, bool> _canExecute;
+        private readonly Func<object, Task> _executeAsync;
 
-        /// <summary>
-        /// Создаёт команду, которая всегда может выполняться.
-        /// </summary>
-        /// <param name="execute">Действие, выполняемое командой.</param>
-        public RelayCommand(Action<object> execute)
-            : this(execute, null)
-        {
-        }
+        public event EventHandler CanExecuteChanged;
 
-        /// <summary>
-        /// Создаёт команду, у которой можно указать условие выполнения.
-        /// </summary>
-        /// <param name="execute">Действие, выполняемое командой.</param>
-        /// <param name="canExecute">Функция, определяющая, можно ли выполнить команду.</param>
-        public RelayCommand(Action<object> execute, Func<object, bool> canExecute)
+        // Синхронный конструктор
+        public RelayCommand(Action<object> executeAction, Func<object, bool> canExecute = null)
         {
-            _execute = execute ?? throw new ArgumentNullException(nameof(execute));
+            _executeAction = executeAction;
             _canExecute = canExecute;
         }
 
-        public event EventHandler CanExecuteChanged;
+        // Асинхронный конструктор
+        public RelayCommand(Func<object, Task> executeAsync, Func<object, bool> canExecute = null)
+        {
+            _executeAsync = executeAsync;
+            _canExecute = canExecute;
+        }
 
         public bool CanExecute(object parameter)
         {
             return _canExecute == null || _canExecute(parameter);
         }
 
-        public void Execute(object parameter)
+        public async void Execute(object parameter)
         {
-            _execute(parameter);
+            if (_executeAction != null)
+            {
+                _executeAction(parameter);
+            }
+            else if (_executeAsync != null)
+            {
+                await _executeAsync(parameter);
+            }
         }
 
-        /// <summary>
-        /// Вызывайте этот метод, чтобы обновить состояние возможности выполнения команды (CanExecute).
-        /// </summary>
         public void RaiseCanExecuteChanged()
         {
             CanExecuteChanged?.Invoke(this, EventArgs.Empty);

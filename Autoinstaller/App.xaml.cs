@@ -11,18 +11,20 @@ namespace Autoinstaller
         {
             base.OnStartup(e);
 
-            // Создаём экземпляр сервиса
+            // Создаём сервис установки
             IInstallerService installerService = new InstallerService();
 
-            // Создаём ViewModel, передаём в конструктор сервис
-            var mainViewModel = new MainViewModel(installerService);
+            // Создаём сервис проверки
+            IProgramCheckerService checkerService = new ProgramCheckerService();
 
-            // Создаём главное окно и назначаем DataContext
+            // Создаём ViewModel и передаём сервис
+            var mainViewModel = new MainViewModel(installerService ,checkerService);
+
+            // Создаём окно и назначаем DataContext
             MainWindow mainWindow = new MainWindow
             {
                 DataContext = mainViewModel
             };
-
             mainWindow.Show();
         }
     }

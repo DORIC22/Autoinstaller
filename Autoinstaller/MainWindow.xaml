@@ -1,17 +1,34 @@
 ﻿<Window x:Class="Autoinstaller.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Autoinstaller"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <Button Content="Установить программу"
-                Command="{Binding InstallCommand}"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Width="150"
-                Height="40" />
+        xmlns:vm="clr-namespace:Autoinstaller.ViewModels"
+        Title="MainWindow" Height="400" Width="600">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Таблица программ -->
+        <DataGrid ItemsSource="{Binding ProgramList}"
+                  AutoGenerateColumns="False"
+                  Grid.Row="0" 
+                  Margin="0,0,0,10">
+            <DataGrid.Columns>
+                <!-- Галочка (IsSelected) -->
+                <DataGridCheckBoxColumn Binding="{Binding IsSelected}" Header="Выбрать"/>
+                <!-- Название программы -->
+                <DataGridTextColumn Binding="{Binding Name}" Header="Программа"/>
+                <!-- Текущий статус (Не установлено, Установка..., Установлено) -->
+                <DataGridTextColumn Binding="{Binding Status}" Header="Статус"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!-- Кнопка установки -->
+        <Button Content="Установить выбранное"
+                Command="{Binding InstallSelectedCommand}"
+                HorizontalAlignment="Right"
+                Width="150" Height="30"
+                Grid.Row="1"/>
     </Grid>
 </Window>
