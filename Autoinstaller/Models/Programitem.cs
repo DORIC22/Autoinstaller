@@ -55,5 +55,20 @@ namespace Autoinstaller.Models
             get => _targetReplacePath;
             set => SetProperty(ref _targetReplacePath, value);
         }
+
+        private string _shortcutName;
+        public string ShortcutName
+        {
+            get => _shortcutName;
+            set => SetProperty(ref _shortcutName, value);
+        }
+
+        // Новое поле "Timeout" (в секундах)
+        private int _timeout;
+        public int Timeout
+        {
+            get => _timeout;
+            set => SetProperty(ref _timeout, value);
+        }
     }
 }

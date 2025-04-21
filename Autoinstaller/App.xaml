@@ -4,6 +4,9 @@
              xmlns:local="clr-namespace:Autoinstaller">
              
     <Application.Resources>
-         
+        <!-- Установка иконки приложения -->
+        <ResourceDictionary>
+            <BitmapImage x:Key="AppIcon" UriSource="pack://application:,,,/Recources/Group-18.ico"/>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
